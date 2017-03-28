@@ -13,6 +13,7 @@ from pygame.locals import *
 
 #Initialisation
 pygame.mixer.init()
+playSound = 0
 
 def creation() :
     pygame.mixer.music.load("sonbutton.mp3")
@@ -32,24 +33,37 @@ def creation() :
     photo = ImageTk.PhotoImage(image)
     label = Label(image=photo, width=150, height=150)
     label.image = photo # keep a reference!
-    label.pack(pady = 10)
+    label.pack(pady = 5)
+
+    button_frame = Frame(fenetre)
+    button_frame.pack()
+
+    reset_button = Button(button_frame, text='Couper son')
+    run_button = Button(button_frame, text='Jouer son')
+
+    button_frame.columnconfigure(0, weight=1)
+    button_frame.columnconfigure(1, weight=1)
+
+    reset_button.grid(row=0, column=0)
+    run_button.grid(row=0, column=1)
 
     HelpButton = Button(fenetre, text= 'Help', width=5 , bg='green',height='0',font="arial 10 bold",command=lambda:showHelp(1)).pack()
 
     add = Button(fenetre, text= ' Addition', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(1)).pack(pady = 10)
     multi= Button(fenetre, text= ' Multiplication', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(2)).pack(pady = 10)
-   # trans= Button(fenetre, text= ' Transpose', width=50 , bg='green',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(3)).pack(pady = 10)
     inverse= Button(fenetre, text= ' Inverse', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(4)).pack(pady = 10)
     resoluSyst = Button(fenetre, text=' Résolution systeme lineaire', width=50, bg='gray', height='2', font="arial 16 bold",
                      command=lambda: saisieLigneColonne(6)).pack(pady=10)
-    fermer = Button(fenetre, text=' Quitter', width=50, bg='green', height='2', font="arial 16 bold",
-                     command=lambda: exit()).pack(pady=10)
+    fermer = Button(fenetre, text=' Quitter', width=25, bg='green', height='1', font="arial 16 bold",
+                     command=lambda: exit()).pack(pady=5)
     return fenetre
 
 def showHelp(choice) :
-    tkMessageBox.showinfo("Aide", "Ce programme vous permet de résoudre quelques opérations sur les matrices à savoir l'inverse d'une matrice, la resolution d'un système lineaire, l'addition et la multiplicatio de deux matrices. \n \n \n \n @copyright Babacar Niang")
+    tkMessageBox.showinfo("Aide", "Ce programme vous permet de résoudre quelques opérations sur les matrices à savoir l'inverse d'une matrice, la resolution d'un système lineaire, l'addition et la multiplicatio de deux matrices. \n \n \t \t @copyright Babacar Niang")
 
 def exit() :
+    pygame.mixer.music.load("soundExit.mp3")
+    pygame.mixer.music.play()
     if tkMessageBox.askyesno('Confirmer la fermeture','Êtes-vous sûr de vouloir quitter ?'):
         fenetre.destroy()
 def identite(identite,ligne,colonne) :
@@ -161,6 +175,8 @@ def transpose(mat1):
     return resultat
 
 def retourMenuPrincipal(fenetre_addition) :
+    pygame.mixer.music.load("sonbutton.mp3")
+    pygame.mixer.music.play()
     fenetre_addition.destroy()
     fenetre.deiconify()
     global matrice1
@@ -173,6 +189,8 @@ def retourMenuPrincipal(fenetre_addition) :
     matcell2=list()
     
 def create_matrice(fenetre,ligne ,colonne,ligne2, colonne2,resButton,choix) :
+   pygame.mixer.music.load("soundSolution.mp3")
+   pygame.mixer.music.play()
    i=0
    try :
         resButton.configure(state=DISABLED)
@@ -242,6 +260,8 @@ def create_matrice(fenetre,ligne ,colonne,ligne2, colonne2,resButton,choix) :
         
     
 def saisie(matriceFrame1,fenetre,ligne, colonne,colonneMat2,choix,reinit,add):
+  pygame.mixer.music.load("sonbutton.mp3")
+  pygame.mixer.music.play()
   try :
     ligne=int(ligne)
     colonne=int(colonne)
@@ -292,6 +312,8 @@ def saisie(matriceFrame1,fenetre,ligne, colonne,colonneMat2,choix,reinit,add):
     showerror("Erreur Saisie ligne/colonne", "Les valeurs saisies sont incorrectes. Veuillez entrer des entiers")
 
 def reinitialiser(fenetre_addition,add,reinit) :
+    pygame.mixer.music.load("sonbutton.mp3")
+    pygame.mixer.music.play()
     global matriceFrame1
     global matrice1
     global matrice2
