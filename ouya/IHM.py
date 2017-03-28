@@ -1,28 +1,36 @@
 #!/usr/bin/env python
 # coding=utf-8
 import numpy as np
-import PIL.Image
-import PIL.ImageTk
+from PIL import Image, ImageTk
+import PIL
 import os
 from Tkinter import *
 from tkMessageBox import *
+import Tkinter
 
 def creation() :
     fenetre = Tk()
     fenetre.geometry('1400x800')
     fenetre.title('Fenetre Principale')
     fenetre.configure(background='navajo white')
-    image = PIL.Image.open("bannerEsp.png")
-    photo = PIL.ImageTk.PhotoImage(image)
+    
+    image = PIL.Image.open("bannerESP.png")
+    photo = ImageTk.PhotoImage(image)
+    label = Label(image=photo, width=650, height=75)
+    label.image = photo # keep a reference!
+    label.pack()
 
-    cadredessin = Canvas(fenetre, bg="dark grey", height=100, width=600)
-    cadredessin.create_image(100, 600, image=photo)
-    cadredessin.pack()
-    add = Button(fenetre, text= ' Addition', width=50 , bg='green',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(1)).pack(pady = 10)
-    multi= Button(fenetre, text= ' Multiplication', width=50 , bg='green',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(2)).pack(pady = 10)
+    image = PIL.Image.open("moi.jpg")
+    photo = ImageTk.PhotoImage(image)
+    label = Label(image=photo, width=150, height=150)
+    label.image = photo # keep a reference!
+    label.pack(pady = 10)
+
+    add = Button(fenetre, text= ' Addition', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(1)).pack(pady = 10)
+    multi= Button(fenetre, text= ' Multiplication', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(2)).pack(pady = 10)
    # trans= Button(fenetre, text= ' Transpose', width=50 , bg='green',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(3)).pack(pady = 10)
-    inverse= Button(fenetre, text= ' Inverse', width=50 , bg='green',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(4)).pack(pady = 10)
-    resoluSyst = Button(fenetre, text=' Résolution systeme lineaire', width=50, bg='green', height='2', font="arial 16 bold",
+    inverse= Button(fenetre, text= ' Inverse', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(4)).pack(pady = 10)
+    resoluSyst = Button(fenetre, text=' Résolution systeme lineaire', width=50, bg='gray', height='2', font="arial 16 bold",
                      command=lambda: saisieLigneColonne(6)).pack(pady=10)
     exit = Button(fenetre, text=' Quitter', width=50, bg='green', height='2', font="arial 16 bold",
                      command=lambda: exit()).pack(pady=10)
@@ -308,7 +316,7 @@ def saisieLigneColonne(choix):
         colLabel.pack(side="left", fill=X)   
         colEntry=Entry(fenetre_ligne_col,width=14)
         colEntry.pack(side="left", padx=10, fill=X)
-        add = Button(fenetre_ligne_col, text= 'OK', width=10 , bg='gold',height='2',font="arial 9 bold",command=  lambda: saisie( matriceFrame1,fenetre_addition,ligneEntry.get(),colEntry.get(),"0",choix,reinit,add))    
+        add = Button(fenetre_ligne_col, text= 'OK', width=10 , bg='green',height='2',font="arial 9 bold",command=  lambda: saisie( matriceFrame1,fenetre_addition,ligneEntry.get(),colEntry.get(),"0",choix,reinit,add))    
     if choix==4:
         ligneText=StringVar()
         ligneText.set("Nombre de lignes / Colonnes :")
@@ -316,7 +324,7 @@ def saisieLigneColonne(choix):
         ligneLabel.pack(side="left" ,  fill=X)   
         ligneEntry=Entry(fenetre_ligne_col,width=14)
         ligneEntry.pack(side="left",padx=10, fill=X)
-        add = Button(fenetre_ligne_col, text= 'OK', width=10 , bg='gold',height='2',font="arial 9 bold",command=  lambda: saisie( matriceFrame1,fenetre_addition,ligneEntry.get(),ligneEntry.get(),"0",choix,reinit,add))    
+        add = Button(fenetre_ligne_col, text= 'OK', width=10 , bg='green',height='2',font="arial 9 bold",command=  lambda: saisie( matriceFrame1,fenetre_addition,ligneEntry.get(),ligneEntry.get(),"0",choix,reinit,add))    
     if choix==2 :
         ligneText=StringVar()
         ligneText.set("Nombre de lignes matrice1 :")
@@ -336,7 +344,7 @@ def saisieLigneColonne(choix):
         ligneLabel2.pack(side="left" ,  fill=X)   
         ligneEntry2=Entry(fenetre_ligne_col,width=14)
         ligneEntry2.pack(side="left",padx=10, fill=X)
-        add = Button(fenetre_ligne_col, text= 'OK', width=20 , bg='gold',height='2',font="arial 9 bold",command=  lambda: saisie( matriceFrame1,fenetre_addition,ligneEntry.get(),colEntry.get(),ligneEntry2.get(),choix,reinit,add))
+        add = Button(fenetre_ligne_col, text= 'OK', width=20 , bg='green',height='2',font="arial 9 bold",command=  lambda: saisie( matriceFrame1,fenetre_addition,ligneEntry.get(),colEntry.get(),ligneEntry2.get(),choix,reinit,add))
     if choix==6 :
         ligneText = StringVar()
         ligneText.set("Nombre de lignes matrice / Nombre de lignes vecteur :")
@@ -350,13 +358,13 @@ def saisieLigneColonne(choix):
         colLabel.pack(side="left", fill=X)
         colEntry = Entry(fenetre_ligne_col, width=14)
         colEntry.pack(side="left", padx=10, fill=X)
-        add = Button(fenetre_ligne_col, text='OK', width=20, bg='gold', height='2', font="arial 9 bold",
+        add = Button(fenetre_ligne_col, text='OK', width=20, bg='green', height='2', font="arial 9 bold",
                      command=lambda: saisie(matriceFrame1, fenetre_addition, ligneEntry.get(), colEntry.get(),
                                             "0", choix, reinit, add))
     add.pack(pady = 10,side="left")
-    reinit=Button(fenetre_ligne_col,text='Reinitialiser',width=20,bg='gold',height='2',font="arial 9 bold",command=lambda:reinitialiser(fenetre_addition,add,reinit),state=DISABLED)
+    reinit=Button(fenetre_ligne_col,text='Reinitialiser',width=20,bg='green',height='2',font="arial 9 bold",command=lambda:reinitialiser(fenetre_addition,add,reinit),state=DISABLED)
     reinit.pack(pady = 10,side="left")
-    retour = Button(fenetre_ligne_col, text= 'Menu principal' , bg='gold',height='2',font="arial 9 bold",command=lambda:retourMenuPrincipal(fenetre_addition))
+    retour = Button(fenetre_ligne_col, text= 'Menu principal' , bg='green',height='2',font="arial 9 bold",command=lambda:retourMenuPrincipal(fenetre_addition))
     retour.pack(side="left")
     
 
