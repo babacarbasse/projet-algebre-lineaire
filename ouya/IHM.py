@@ -7,13 +7,21 @@ import os
 from Tkinter import *
 from tkMessageBox import *
 import Tkinter
+import tkMessageBox
+import pygame
+from pygame.locals import *
+
+#Initialisation
+pygame.mixer.init()
 
 def creation() :
+    pygame.mixer.music.load("sonbutton.mp3")
+    pygame.mixer.music.play()
     fenetre = Tk()
     fenetre.geometry('1400x800')
     fenetre.title('Fenetre Principale')
     fenetre.configure(background='navajo white')
-    
+    sbar = Scrollbar(fenetre)
     image = PIL.Image.open("bannerESP.png")
     photo = ImageTk.PhotoImage(image)
     label = Label(image=photo, width=650, height=75)
@@ -26,18 +34,24 @@ def creation() :
     label.image = photo # keep a reference!
     label.pack(pady = 10)
 
+    HelpButton = Button(fenetre, text= 'Help', width=5 , bg='green',height='0',font="arial 10 bold",command=lambda:showHelp(1)).pack()
+
     add = Button(fenetre, text= ' Addition', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(1)).pack(pady = 10)
     multi= Button(fenetre, text= ' Multiplication', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(2)).pack(pady = 10)
    # trans= Button(fenetre, text= ' Transpose', width=50 , bg='green',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(3)).pack(pady = 10)
     inverse= Button(fenetre, text= ' Inverse', width=50 , bg='gray',height='2',font="arial 16 bold",command=lambda:saisieLigneColonne(4)).pack(pady = 10)
     resoluSyst = Button(fenetre, text=' Résolution systeme lineaire', width=50, bg='gray', height='2', font="arial 16 bold",
                      command=lambda: saisieLigneColonne(6)).pack(pady=10)
-    exit = Button(fenetre, text=' Quitter', width=50, bg='green', height='2', font="arial 16 bold",
+    fermer = Button(fenetre, text=' Quitter', width=50, bg='green', height='2', font="arial 16 bold",
                      command=lambda: exit()).pack(pady=10)
     return fenetre
 
+def showHelp(choice) :
+    tkMessageBox.showinfo("Aide", "Ce programme vous permet de résoudre quelques opérations sur les matrices à savoir l'inverse d'une matrice, la resolution d'un système lineaire, l'addition et la multiplicatio de deux matrices. \n \n \n \n @copyright Babacar Niang")
+
 def exit() :
-    return 0
+    if tkMessageBox.askyesno('Confirmer la fermeture','Êtes-vous sûr de vouloir quitter ?'):
+        fenetre.destroy()
 def identite(identite,ligne,colonne) :
     i,j=0,0
     while i<ligne :
@@ -294,6 +308,8 @@ def reinitialiser(fenetre_addition,add,reinit) :
     matcell2=list()
     
 def saisieLigneColonne(choix):
+    pygame.mixer.music.load("sonbutton.mp3")
+    pygame.mixer.music.play()
     global matriceFrame1
     fenetre.withdraw()
     fenetre_addition=Toplevel(fenetre, bg='black')
