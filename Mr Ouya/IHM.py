@@ -11,13 +11,18 @@ import tkMessageBox
 import pygame
 from pygame.locals import *
 
+
 #Initialisation
 pygame.mixer.init()
-playSound = 0
+
+global playSound
+playSound = True
+
 
 def creation() :
     pygame.mixer.music.load("sonbutton.mp3")
-    pygame.mixer.music.play()
+    if playSound == True : 
+        pygame.mixer.music.play()
     fenetre = Tk()
     fenetre.geometry('1400x800')
     fenetre.title('Fenetre Principale')
@@ -38,9 +43,10 @@ def creation() :
     button_frame = Frame(fenetre)
     button_frame.pack()
 
-    reset_button = Button(button_frame, text='Couper son')
-    run_button = Button(button_frame, text='Jouer son')
-
+    reset_button = Button(button_frame, text='Couper son', command=lambda: changeSound(2))
+    run_button = Button(button_frame, text='Jouer son', command=lambda: changeSound(1))
+    
+    
     button_frame.columnconfigure(0, weight=1)
     button_frame.columnconfigure(1, weight=1)
 
@@ -58,12 +64,20 @@ def creation() :
                      command=lambda: exit()).pack(pady=5)
     return fenetre
 
+def changeSound(choix) :
+    global playSound
+    if choix == 1 :
+        playSound = True
+    else :
+        playSound = False
+
 def showHelp(choice) :
     tkMessageBox.showinfo("Aide", "Ce programme vous permet de résoudre quelques opérations sur les matrices à savoir l'inverse d'une matrice, la resolution d'un système lineaire, l'addition et la multiplicatio de deux matrices. \n \n \t \t @copyright Babacar Niang")
 
 def exit() :
     pygame.mixer.music.load("soundExit.mp3")
-    pygame.mixer.music.play()
+    if playSound == True : 
+        pygame.mixer.music.play()
     if tkMessageBox.askyesno('Confirmer la fermeture','Êtes-vous sûr de vouloir quitter ?'):
         fenetre.destroy()
 def identite(identite,ligne,colonne) :
@@ -176,7 +190,8 @@ def transpose(mat1):
 
 def retourMenuPrincipal(fenetre_addition) :
     pygame.mixer.music.load("sonbutton.mp3")
-    pygame.mixer.music.play()
+    if playSound == True : 
+        pygame.mixer.music.play()
     fenetre_addition.destroy()
     fenetre.deiconify()
     global matrice1
@@ -190,7 +205,8 @@ def retourMenuPrincipal(fenetre_addition) :
     
 def create_matrice(fenetre,ligne ,colonne,ligne2, colonne2,resButton,choix) :
    pygame.mixer.music.load("soundSolution.mp3")
-   pygame.mixer.music.play()
+   if playSound == True : 
+        pygame.mixer.music.play()
    i=0
    try :
         resButton.configure(state=DISABLED)
@@ -261,7 +277,8 @@ def create_matrice(fenetre,ligne ,colonne,ligne2, colonne2,resButton,choix) :
     
 def saisie(matriceFrame1,fenetre,ligne, colonne,colonneMat2,choix,reinit,add):
   pygame.mixer.music.load("sonbutton.mp3")
-  pygame.mixer.music.play()
+  if playSound == True : 
+    pygame.mixer.music.play()
   try :
     ligne=int(ligne)
     colonne=int(colonne)
@@ -313,7 +330,8 @@ def saisie(matriceFrame1,fenetre,ligne, colonne,colonneMat2,choix,reinit,add):
 
 def reinitialiser(fenetre_addition,add,reinit) :
     pygame.mixer.music.load("sonbutton.mp3")
-    pygame.mixer.music.play()
+    if playSound == True : 
+        pygame.mixer.music.play()
     global matriceFrame1
     global matrice1
     global matrice2
@@ -331,7 +349,8 @@ def reinitialiser(fenetre_addition,add,reinit) :
     
 def saisieLigneColonne(choix):
     pygame.mixer.music.load("sonbutton.mp3")
-    pygame.mixer.music.play()
+    if playSound == True : 
+        pygame.mixer.music.play()
     global matriceFrame1
     fenetre.withdraw()
     fenetre_addition=Toplevel(fenetre, bg='black')
